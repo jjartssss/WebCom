@@ -40,7 +40,7 @@ const EditViewChapter = ({projectId, chapterId}) => {
 
 
   return (
-    <div className='flex h-screen flex-col justify-center items-center'>
+    <div className='flex mt-10 h-fit flex-col justify-center items-center'>
       <div className='w-full flex justify-end'>
           <button onClick={() => setPopupAddImage(true)} className='btn-pri w-[200px]'>ADD CONTENT</button>
       </div>
@@ -48,12 +48,12 @@ const EditViewChapter = ({projectId, chapterId}) => {
       <p>{chapter.content}</p>
       {/* Add more chapter details as needed */}
       {/* IMAGE HERE  */}
-      <div className='grid grid-cols-2 w-full h-screen '>
-        <div className='col-span-1 overflow-y-auto  mb-32'>
-          <PreviewChapter key={chapterId} chapterId={chapterId} projectId={projectId}></PreviewChapter>
+      <div className='grid grid-rows-4  grid-cols-1 md:grid-cols-2 w-full h-screen '>
+        <div className='row-span-2 md:col-span-1 overflow-y-auto  pb-32'>
+          <PreviewChapter k ey={chapterId} chapterId={chapterId} projectId={projectId}></PreviewChapter>
           
         </div>
-        <div className='col-span-1 shadow-2xl overflow-y-auto mb-32 shadow-black'>
+        <div className='row-span-1 md:col-span-1 shadow-2xl overflow-y-auto pb-32 shadow-black'>
           <CommentsPreview key={chapterId} projectID={projectId} chapterID={chapterId}></CommentsPreview>
         </div>
       </div>

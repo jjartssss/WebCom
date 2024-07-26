@@ -28,12 +28,12 @@ const HomePage = () => {
     <div className='fixed w-full h-screen bg-jt-white'>
         <UserNavigation></UserNavigation>
         <div className='grid grid-cols-10 w-full h-full'>
-            <div className='col-span-1  bg-white'>
+            <div className='hidden md:block col-span-1  bg-white'>
                 <Sidebar newProj={() => showCreateProject()}
                     dashboard={() => setWhatTabOpen("Dashboard")} 
                     projects={() => setWhatTabOpen("Projects")}></Sidebar>
             </div>
-            <div className='col-span-9 bg-green-50'>
+            <div className='col-span-10 md:col-span-9 bg-green-50'>
                 {/* <Projects></Projects> */}
                 {
                     whatTabOpen === "Projects" ? <Projects setWhatTabOpen={EditProjects}></Projects> :

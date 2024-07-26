@@ -26,10 +26,14 @@ const Projects = ({setWhatTabOpen}) => {
   }, []);
 
   return (
-    <div className='w-full h-full bg-red-400 p-5'>
-      <div>
-        <h1>Project List</h1><br/>
-        <div className='grid grid-cols-6 gap-x-2 gap-y-2'>
+    <div className='w-full h-screen overflow-y-scroll '>
+      <div className='sticky flex top-0 w-full h-fit p-3 items-center justify-center bg-red-500'>
+          <h1>Project List</h1><br/>
+        </div>
+      
+      <div className='p-5 mb-32'>
+        
+        <div className=' grid grid-cols-1 md:grid-cols-6 md:gap-x-2 gap-y-5 md:gap-y-2 '>
           {error && <p style={{ color: 'red' }}>{error}</p>}
           {projects.map((project, index) => (
             <ProjectCard
