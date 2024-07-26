@@ -80,8 +80,8 @@ const EditProject = ({projectID}) => {
 //   if (error) return <p>{error}</p>;
 
   return (
-    <div className='w-full h-full bg-black'>
-        <div className='w-full h-full grid grid-cols-5'>
+    <div className='w-full h-screen bg-black'>
+        <div className='w-full h-screen grid grid-cols-5'>
             <div className='col-span-1 bg-blue-300'>
                 <div className='w-full flex justify-end'>   
                     <button onClick={() => setPopupChapter(true)} className='btn-pri'>NEW CHAPTER</button>
@@ -98,7 +98,7 @@ const EditProject = ({projectID}) => {
                 </ul>
             </div>
             {/* MAIN VIEW  */}
-            <div className='col-span-4 bg-jt-white'>
+            <div className=' col-span-4 bg-jt-white'>
                 {
                     chapterID ? <EditViewChapter chapterId={chapterID} projectId={projectID}></EditViewChapter> :
                     <p>Select a chapter to view.</p>

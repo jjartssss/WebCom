@@ -37,21 +37,18 @@ const PreviewChapter = ({ projectId, chapterId }) => {
     }, [projectId, chapterId]);
 
     return (
-        <div className='w-full h-screen overflow-y-auto'>
+        <div className='w-full px-96 h-1/2'>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             {chapter ? (
-                <div >
-                    
-                    <div >
-                        {/* <p>{chapter.imageUrls}</p> */}
+                <div className='w-full h-fit p-5'>
+                    {/* <p>{chapter.imageUrls}</p> */}
                         {chapter.imageUrls && chapter.imageUrls.length > 0 ? (
                             chapter.imageUrls.map((url, index) => (
-                                <img key={index} src={url} alt={`Image ${index}`} className='w-full object-cover h-fit' />
+                                <img key={index} src={url} alt={`Image ${index}`} className='w-full object-cover h-full' />
                             ))
                         ) : (
                             <p>No images available for this chapter.</p>
                         )}
-                    </div>
                 </div>
             ) : (
                 <p>Loading chapter details...</p>

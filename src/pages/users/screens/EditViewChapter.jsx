@@ -3,6 +3,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../utils/firebase/firebaseConfig';
 import UploadMultipleImage from '../../../components/UploadMultipleImage';
 import PreviewChapter from './PreviewChapter';
+import CommentsPreview from './CommentsPreview';
 
 const EditViewChapter = ({projectId, chapterId}) => {
   const [chapter, setChapter] = useState(null);
@@ -37,18 +38,23 @@ const [chapters, setChapters] = useState([]);
 
 
   return (
-    <div className='flex flex-col justify-center items-center'>
-        <div className='w-full flex justify-end'>
-            <button onClick={() => setPopupAddImage(true)} className='btn-pri w-[200px]'>ADD CONTENT</button>
-        </div>
+    <div className='flex h-screen flex-col justify-center items-center'>
+      <div className='w-full flex justify-end'>
+          <button onClick={() => setPopupAddImage(true)} className='btn-pri w-[200px]'>ADD CONTENT</button>
+      </div>
       <h1>{chapter.title}</h1>
       <p>{chapter.content}</p>
       {/* Add more chapter details as needed */}
       {/* IMAGE HERE  */}
-      <div>
-        <PreviewChapter chapterId={chapterId} projectId={projectId}></PreviewChapter>
+      <div className='flex flex-col w-full h-full '>
+        <div className='w-full h-1/2 overflow-y-auto '>
+          <PreviewChapter chapterId={chapterId} projectId={projectId}></PreviewChapter>
+          
+        </div>
+        <div className='w-full row-span-1 h-1/3 shadow-2xl shadow-black'>
+          <CommentsPreview projectID={projectId} chapterID={chapterId}></CommentsPreview>
+        </div>
       </div>
-
         {
             popupAddImage ? 
             <div className='fixed top-0 left-0 bg-black bg-opacity-50 justify-center items-center flex w-full h-screen'>
