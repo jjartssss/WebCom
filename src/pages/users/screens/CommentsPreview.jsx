@@ -72,7 +72,7 @@ const CommentsPreview = ({projectID, chapterID}) => {
       </div>
       {
         commentsList ? commentsList.map((comment, index) => 
-          (<CommentCard updateParent={() => GetComments()} projectID={projectID} chapterID={chapterID} commentID={comment.id}
+          (<CommentCard likes={comment.likes} dislikes={comment.dislikes} updateParent={() => GetComments()} projectID={projectID} chapterID={chapterID} commentID={comment.id}
             key={comment.id} userID={comment.userID} userImage={comment.userImage} username={comment.username} comment={comment.comment}></CommentCard>)  
         ) : <p>No comments at the moment...</p>
       }

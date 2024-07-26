@@ -7,20 +7,20 @@ const PreviewChapter = ({ projectId, chapterId }) => {
     const [error, setError] = useState('');
 
     const fetchChapter = async (projectId, chapterId) => {
-    try {
-        const chapterRef = doc(db, 'projects', projectId, 'chapters', chapterId);
-        const chapterSnap = await getDoc(chapterRef);
+        try {
+            const chapterRef = doc(db, 'projects', projectId, 'chapters', chapterId);
+            const chapterSnap = await getDoc(chapterRef);
 
-        if (chapterSnap.exists()) {
-            return chapterSnap.data();
-        } else {
-            throw new Error("No such document!");
+            if (chapterSnap.exists()) {
+                return chapterSnap.data();
+            } else {
+                throw new Error("No such document!");
+            }
+        } catch (error) {
+            console.error("Error fetching chapter: ", error);
+            throw error;
         }
-    } catch (error) {
-        console.error("Error fetching chapter: ", error);
-        throw error;
-    }
-};
+    };
 
     useEffect(() => {
         const loadChapterData = async () => {
@@ -37,14 +37,14 @@ const PreviewChapter = ({ projectId, chapterId }) => {
     }, [projectId, chapterId]);
 
     return (
-        <div className='w-full px-96 h-1/2'>
+        <div className='w-full '>
             {error && <p style={{ color: 'red' }}>{error}</p>}
             {chapter ? (
                 <div className='w-full h-fit p-5'>
                     {/* <p>{chapter.imageUrls}</p> */}
                         {chapter.imageUrls && chapter.imageUrls.length > 0 ? (
                             chapter.imageUrls.map((url, index) => (
-                                <img key={index} src={url} alt={`Image ${index}`} className='w-full object-cover h-full' />
+                                <img key={index} src={url} alt={`${index}`} className='w-full object-cover h-full' />
                             ))
                         ) : (
                             <p>No images available for this chapter.</p>

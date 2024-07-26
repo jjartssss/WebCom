@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../../../utils/firebase/firebaseConfig';
 import UploadMultipleImage from '../../../components/UploadMultipleImage';
 import PreviewChapter from './PreviewChapter';
@@ -9,29 +9,31 @@ const EditViewChapter = ({projectId, chapterId}) => {
   const [chapter, setChapter] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-const [chapters, setChapters] = useState([]);
+  const [chapters, setChapters] = useState([]);
     const [popupAddImage, setPopupAddImage] = useState(false);
     const [imageUrls, setImageUrls] = useState([]);
-  useEffect(() => {
-    const fetchChapter = async () => {
-      try {
-        const chapterRef = doc(db, 'projects', projectId, 'chapters', chapterId);
-        const chapterSnap = await getDoc(chapterRef);
-        if (chapterSnap.exists()) {
-          setChapter(chapterSnap.data());
-        } else {
-          setError('Chapter not found');
-        }
-        setLoading(false);
-      } catch (err) {
-        console.error('Error fetching chapter:', err);
-        setError('Failed to load chapter.');
-        setLoading(false);
-      }
-    };
 
-    fetchChapter();
+  useEffect(() => {
+    const chapterRef = doc(db, 'projects', projectId, 'chapters', chapterId);
+
+    const unsubscribe = onSnapshot(chapterRef, (chapterSnap) => {
+      if (chapterSnap.exists()) {
+        setChapter(chapterSnap.data());
+        setError(null);
+      } else {
+        setError('Chapter not found');
+      }
+      setLoading(false);
+    }, (err) => {
+      console.error('Error fetching chapter:', err);
+      setError('Failed to load chapter.');
+      setLoading(false);
+    });
+
+    // Cleanup listener on unmount
+    return () => unsubscribe();
   }, [projectId, chapterId]);
+
 
   if (loading) return <p>Loading chapter...</p>;
   if (error) return <p>{error}</p>;
@@ -46,13 +48,13 @@ const [chapters, setChapters] = useState([]);
       <p>{chapter.content}</p>
       {/* Add more chapter details as needed */}
       {/* IMAGE HERE  */}
-      <div className='flex flex-col w-full h-full '>
-        <div className='w-full h-1/2 overflow-y-auto '>
-          <PreviewChapter chapterId={chapterId} projectId={projectId}></PreviewChapter>
+      <div className='grid grid-cols-2 w-full h-screen '>
+        <div className='col-span-1 overflow-y-auto  mb-32'>
+          <PreviewChapter key={chapterId} chapterId={chapterId} projectId={projectId}></PreviewChapter>
           
         </div>
-        <div className='w-full row-span-1 h-1/3 shadow-2xl shadow-black'>
-          <CommentsPreview projectID={projectId} chapterID={chapterId}></CommentsPreview>
+        <div className='col-span-1 shadow-2xl overflow-y-auto mb-32 shadow-black'>
+          <CommentsPreview key={chapterId} projectID={projectId} chapterID={chapterId}></CommentsPreview>
         </div>
       </div>
         {
