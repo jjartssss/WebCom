@@ -4,7 +4,7 @@ import { addDoc, collection } from 'firebase/firestore';
 import { db } from '../../../utils/firebase/firebaseConfig';
 import UploadMultipleImage from '../../../components/UploadMultipleImage';
 
-const CreateProject = ({closePopup}) => {
+const CreateProject = ({userID, closePopup}) => {
 
     const [coverPath, setCoverPath] = useState();
     const [inputs, setInputs] = useState({title: '', desc: ''});
@@ -28,7 +28,7 @@ const CreateProject = ({closePopup}) => {
             alert("Select a cover image fist.")
         } else {
             const docRef = await addDoc(collection(db, "projects"), {
-                authorID: "test",    
+                authorID: userID,    
                 title: inputs.title,
                 desc: inputs.desc,
                 imageURL: coverPath

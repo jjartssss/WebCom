@@ -1,18 +1,18 @@
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { db } from '../../../utils/firebase/firebaseConfig'; // Adjust path as needed
 import ProjectCard from '../../../components/ProjectCard';
 
-const Projects = ({setWhatTabOpen}) => {
+const Projects = ({userID, setWhatTabOpen}) => {
   const [projects, setProjects] = useState([]);
   const [error, setError] = useState('');
 
   useEffect(() => {
     // Real-time listener
-    const unsubscribe = onSnapshot(
-      collection(db, 'projects'),
+    const q = query (collection(db, 'projects'), where("authorID", '==', userID));
+    const unsubscribe = onSnapshot(q,
       (querySnapshot) => {
-        const projectsData = querySnapshot.docs.map(doc => doc.data());
+        const projectsData = querySnapshot.docs.map(doc =>( {id:doc.id, ...doc.data()}));
         setProjects(projectsData);
       },
       (err) => {
@@ -43,7 +43,7 @@ const Projects = ({setWhatTabOpen}) => {
               title={project.title}
               desc={project.desc}
               image={project.imageURL}
-              projID={project.projectID}
+              projID={project.id}
             />
           ))}
         </div>

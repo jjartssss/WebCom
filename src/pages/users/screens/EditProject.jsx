@@ -81,8 +81,8 @@ const EditProject = ({projectID}) => {
 
   return (
     <div className='w-full h-screen '>
-        <div className='w-full h-screen grid grid-rows-5 grid-cols-1 md:grid-cols-5'>
-            <div className='row-span-1  md:mb-0 md:col-span-1 bg-blue-300'>
+        <div className='w-full h-screen grid grid-rows-5 md:grid-rows-1 grid-cols-1 md:grid-cols-5'>
+            <div className='row-span-1 h-screen md:mb-0 md:col-span-1 bg-blue-300'>
                 <div className=' w-full flex justify-end'>   
                     <button onClick={() => setPopupChapter(true)} className='btn-pri'>NEW CHAPTER</button>
                 </div>
@@ -91,14 +91,14 @@ const EditProject = ({projectID}) => {
                     projectID ? <p>{projectID}</p> : <></>
                 }
                 <center><h1>Chapters</h1></center>
-                <ul className='flex h-full pb-32 flex-col gap-y-3 p-3 overflow-y-auto'>
+                <ul className='flex h-screen pb-32 flex-col gap-y-3 p-3 overflow-y-auto'>
                     {chapters.map((chapter, index) => (
                     <button onClick={()=> setChapterID(chapter.id)} key={index} className='btn-pri bg-jt-dark' >{chapter.title}</button>
                     ))}
                 </ul>
             </div>
             {/* MAIN VIEW  */}
-            <div className='row-auto md:col-span-4 bg-jt-white'>
+            <div className='row-auto h-screen md:col-span-4 bg-jt-white'>
                 {
                     chapterID ? <EditViewChapter chapterId={chapterID} projectId={projectID}></EditViewChapter> :
                     <p>Select a chapter to view.</p>

@@ -1,13 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
+@import url('https://fonts.googleapis.com/css2?family=Bahiana&family=Buenard:wght@400;700&family=Unlock&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bahiana&family=Bubblegum+Sans&family=Buenard:wght@400;700&family=Unlock&display=swap');
 @layer base {
 
+  .font1 {
+    font-family: "Bubblegum Sans", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
 
+  .font2-reg {
+    font-family: "Buenard", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
 
-  
+  .font2-bold {
+    font-family: "Buenard", serif;
+    font-weight: 700;
+    font-style: normal;
+  }
 
   .inp-def {
     @apply w-full h-fit px-5 py-2 text-center border-[1px] border-black border-opacity-20
