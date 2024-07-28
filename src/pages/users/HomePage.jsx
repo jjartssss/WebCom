@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import UserNavigation from './UserNavigation'
 import Sidebar from './Sidebar'
 import CreateProject from './screens/CreateProject'
@@ -26,9 +26,14 @@ const HomePage = () => {
         }
     }
 
-    if (!user) {
+    
+    
+    useEffect(() =>{
+        // localStorage.removeItem('user')
+        if (!user) {
         navigate('/login');
     }
+    },)
 
   return (
     <div className='fixed w-full h-screen bg-jt-white'>
