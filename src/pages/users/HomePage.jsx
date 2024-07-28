@@ -26,13 +26,13 @@ const HomePage = () => {
         }
     }
 
-    
+    if (!user) {
+        navigate('/login');
+    }
     
     useEffect(() =>{
         // localStorage.removeItem('user')
-        if (!user) {
-        navigate('/login');
-    }
+        
     },)
 
   return (

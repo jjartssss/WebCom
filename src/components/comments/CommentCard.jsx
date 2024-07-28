@@ -5,9 +5,11 @@ import { AiOutlineDislike } from "react-icons/ai";
 import { BsReply } from "react-icons/bs";
 import { db } from '../../utils/firebase/firebaseConfig';
 import ReplyCard from './ReplyCard';
+import { AddDataToActivityLog } from '../../pages/users/global/ActivityLog';
 
-const CommentCard = ({username,likes, dislikes,  userID, userImage, comment, projectID, chapterID, commentID}) => {
-
+const CommentCard = ({isDisliked, isLiked, username,likes, dislikes,  userID, userImage, comment, projectID, chapterID, commentID}) => {
+    const user = localStorage.getItem('user');
+    const userData = JSON.parse(user);
     const [reply, setReply ] = useState("");
 
     const [replies, setReplies] = useState([]);
@@ -21,7 +23,7 @@ const CommentCard = ({username,likes, dislikes,  userID, userImage, comment, pro
             const commentRef = doc(db, "projects", projectID, "chapters", chapterID, "comments", commentID);
             const replyRef = collection(commentRef, 'replies');
             await addDoc(replyRef, replyData).then(
-                alert("Added Reply"),
+                // alert("Added Reply"),
                 setReply(""),
                 GetReplies(),
                 console.log("Success adding reply")
@@ -35,9 +37,9 @@ const CommentCard = ({username,likes, dislikes,  userID, userImage, comment, pro
     e.preventDefault();
     if (reply !== "") {
         const replyData = {
-            userID: 'test',
-            username: 'test-username',
-            userImage: 'test-username',
+            userID: userData.userID,
+            username: userData.username,
+            userImage: userData.photoURL,
             comment: reply,
             likes: 0,
             dislikes: 0,
@@ -69,10 +71,20 @@ const CommentCard = ({username,likes, dislikes,  userID, userImage, comment, pro
         setLikeCount((prev) => prev = prev + 1);
         setAlreadyLike(true);
         try {
+            const ActivityLogData = {
+                userID: userData.userID,
+                username: userData.username,
+                type: 'like-comment',
+                commentID: commentID,
+                createdAt: new Date(),
+            };
             const commentRef = doc(db, 'projects', projectID, 'chapters', chapterID, 'comments', commentID);
             await updateDoc(commentRef, {
             likes: increment(1)
-            });
+            }).then(
+                
+                AddDataToActivityLog(ActivityLogData)
+            );
             console.log('Like incremented successfully!');
         } catch (error) {
             console.error('Error incrementing like: ', error);
@@ -82,11 +94,21 @@ const CommentCard = ({username,likes, dislikes,  userID, userImage, comment, pro
     const incrementDisLike = async () => {
         setDislikeCount((prev) => prev = prev + 1);
         setAlreadyDislike(true);
+        const ActivityLogData = {
+            userID: userData.userID,
+            username: userData.username,
+            type: 'dislike-comment',
+            commentID: commentID,
+            createdAt: new Date(),
+        };
         try {
             const commentRef = doc(db, 'projects', projectID, 'chapters', chapterID, 'comments', commentID);
             await updateDoc(commentRef, {
             dislikes: increment(1)
-            });
+            }).then(
+                
+                AddDataToActivityLog(ActivityLogData)
+            );
             console.log('Like incremented successfully!');
         } catch (error) {
             console.error('Error incrementing like: ', error);
@@ -102,16 +124,18 @@ const CommentCard = ({username,likes, dislikes,  userID, userImage, comment, pro
         <p>{comment}</p>
         {/* FOR REPLIES AND LIKES */}
         <div className='flex gap-x-5 w-full h-fit p-5 bg-white'>
+            {console.log(isLiked)}
+            {console.log(isDisliked)}
             {
-                alreadyLike || alreadyDislike ? 
+                alreadyLike || isLiked || isDisliked || alreadyDislike  ? 
                 <>
                     {
-                        alreadyLike ? 
-                        <>
+                        alreadyLike || isLiked === true ?   
+                        <> 
                             <p  className='flex text-2xl items-center gap-x-2'>{likeCount} <AiOutlineLike className='text-blue-500 '></AiOutlineLike></p>
                             <p  className='flex text-2xl items-center gap-x-2'>{dislikeCount} <AiOutlineDislike className='mt-2'></AiOutlineDislike></p>
                         </>
-                        : alreadyDislike ? 
+                        : alreadyDislike || isDisliked === true ? 
                         <>
                             <p  className='flex text-2xl items-center gap-x-2'>{likeCount} <AiOutlineLike className=' '></AiOutlineLike></p>
                             <p  className='flex text-2xl items-center gap-x-2'>{dislikeCount} <AiOutlineDislike className='text-red-500 mt-2'></AiOutlineDislike></p>
