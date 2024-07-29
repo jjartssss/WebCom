@@ -26,15 +26,10 @@ const ReadChapter = () => {
     }, [projectID, chapterID]);
 
   return (
-    <div className='flex justify-center p-32 items-center w-full h-screen bg-jt-dark'>
+    <div className='flex justify-center p-5 md:p-32 items-center w-full h-screen bg-jt-dark'>
       {/* <h1>Project ID: {projectID}</h1> */}
-      <div className='flex flex-col p-5 gap-y-2 w-1/2 h-full bg-jt-white rounded-2xl'>
-            <h1>
-                {projectID}
-            </h1>
-            <h2>
-                {chapterID}
-            </h2>
+      <div className='flex flex-col p-5 gap-y-2 w-[100%] md:w-1/2 h-full bg-jt-white rounded-2xl'>
+            
             <div className='w-full h-full overflow-y-auto'>
                 {chapter ? (
                     <div className='w-full h-fit p-5'>
