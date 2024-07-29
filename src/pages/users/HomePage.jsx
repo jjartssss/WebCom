@@ -26,21 +26,21 @@ const HomePage = () => {
         }
     }
 
-    if (!user) {
-        navigate('/login');
-    }
+    
     
     useEffect(() =>{
         // localStorage.removeItem('user')
-        
-    },)
+        if (userData.userID === "" || userData.userID === null) {
+            navigate('/login');
+        }
+    },[])
 
   return (
     <div className='fixed w-full h-screen bg-jt-white'>
         <UserNavigation></UserNavigation>
         <div className='grid grid-cols-10 w-full h-full'>
-            <div className='hidden md:block col-span-1  bg-white'>
-                <Sidebar userID={userData.userID} username={userData.username} photoURL={userData.photoURL} newProj={() => showCreateProject()}
+            <div className='hidden md:block col-span-1 bg-jt-dark'>
+                <Sidebar userImage={userData.photoURL} userID={userData.userID} username={userData.username} photoURL={userData.photoURL} newProj={() => showCreateProject()}
                     dashboard={() => setWhatTabOpen("Dashboard")} 
                     projects={() => setWhatTabOpen("Projects")}></Sidebar>
             </div>

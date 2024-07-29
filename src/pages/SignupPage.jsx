@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 const SignupPage = () => {
     const navigate = useNavigate();
   const [inputs, setInputs] = useState({username: '', email: '', password: ''});
-
+  const user = localStorage.getItem('user')
+  const userData = JSON.parse(user);
   const HandleInputs = (event) => {
     const {name, value} = event.target;
     setInputs({
@@ -16,7 +17,11 @@ const SignupPage = () => {
   const HandleLogin = async (e) => {
 
   }
-
+  useEffect(() => {
+    if (userData.userID !== "" || userData.userID !== null) {
+      navigate('/user')
+    }
+  }, []);
   
   return (
     <div className='flex justify-center items-center w-full h-screen bg-blue-950'>

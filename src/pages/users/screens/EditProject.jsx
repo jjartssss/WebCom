@@ -2,6 +2,7 @@ import { addDoc, collection, doc, getDocs, orderBy, query } from 'firebase/fires
 import React, { useEffect, useState } from 'react'
 import { db } from '../../../utils/firebase/firebaseConfig';
 import EditViewChapter from './EditViewChapter';
+import { fetchChapters } from '../global/FetchChapters';
 
 const EditProject = ({projectID}) => {
     const [chapterTitle, setChapterTitle] = useState('');
@@ -41,22 +42,7 @@ const EditProject = ({projectID}) => {
     };
 
 
-    const fetchChapters = async (projectId) => {
-        const projectRef = doc(db, 'projects', projectId);
-        const chaptersRef = collection(projectRef, 'chapters');
-
-        // Create a query to order by a specific field, e.g., "createdAt"
-        const q = query(chaptersRef, orderBy('createdAt', 'asc'));
-
-        const querySnapshot = await getDocs(q);
-
-        const chapters = querySnapshot.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data()
-        }));
-
-        return chapters;
-    };
+    
 
     const getChapters = async () => {
         try {

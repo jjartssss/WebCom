@@ -4,7 +4,7 @@ import { db, storage } from '../utils/firebase/firebaseConfig';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore';
 
-const UploadMultipleImage = ({ setPath, chapterId, closePopup, projectId, updateParent }) => {    
+const UploadMultipleImage = ({ setPath, chapterId, closePopup, projectId, updateParent }) => {  
   const [images, setImages] = useState([]);
   const [previews, setPreviews] = useState([]);
   const [progresses, setProgresses] = useState([]);

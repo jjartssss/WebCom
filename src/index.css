@@ -23,6 +23,11 @@
     font-style: normal;
   }
 
+  h1 {
+    @apply text-4xl
+  }
+
+
   .inp-def {
     @apply w-full h-fit px-5 py-2 text-center border-[1px] border-black border-opacity-20
   }

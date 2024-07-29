@@ -27,8 +27,8 @@ const Projects = ({userID, setWhatTabOpen}) => {
 
   return (
     <div className='w-full h-screen overflow-y-scroll '>
-      <div className='sticky flex top-0 w-full h-fit p-3 items-center justify-center bg-red-500'>
-          <h1>Project List</h1><br/>
+      <div className='sticky flex top-0 w-full h-fit p-3 items-center justify-center '>
+          <h1 className='font1 text-jt-primary-light'>Project's</h1><br/>
         </div>
       
       <div className='p-5 mb-32'>

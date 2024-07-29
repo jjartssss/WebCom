@@ -1,31 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../utils/firebase/firebaseConfig';
+import { fetchChapterContents } from '../global/FetchChapterContent';
 
 const PreviewChapter = ({ projectId, chapterId }) => {
     const [chapter, setChapter] = useState(null);
     const [error, setError] = useState('');
 
-    const fetchChapter = async (projectId, chapterId) => {
-        try {
-            const chapterRef = doc(db, 'projects', projectId, 'chapters', chapterId);
-            const chapterSnap = await getDoc(chapterRef);
-
-            if (chapterSnap.exists()) {
-                return chapterSnap.data();
-            } else {
-                throw new Error("No such document!");
-            }
-        } catch (error) {
-            console.error("Error fetching chapter: ", error);
-            throw error;
-        }
-    };
+    
 
     useEffect(() => {
         const loadChapterData = async () => {
             try {
-                const chapterData = await fetchChapter(projectId, chapterId);
+                const chapterData = await fetchChapterContents(projectId, chapterId);
                 setChapter(chapterData);
             } catch (err) {
                 console.error("Error fetching chapter details: ", err);

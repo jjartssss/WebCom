@@ -8,6 +8,7 @@ module.exports = {
 
       colors: {
         'jt-primary': '#087BB8',
+        'jt-primary-bright': '#0093FB',
         'jt-primary-dark': '#0B0C63',
         'jt-primary-light': '#08B6D9',
         'jt-white': '#FBFFF1',

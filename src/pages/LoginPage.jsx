@@ -9,11 +9,14 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 const LoginPage = () => {
   const provider = new GoogleAuthProvider();
   const user = localStorage.getItem('user')
+  const userData = JSON.parse(user);
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
   const [inputs, setInputs] = useState({username: '', password: ''});
   useEffect(() => {
-    
+    if (userData.userID !== "" || userData.userID !== null) {
+      navigate('/user')
+    }
   }, []);
 
   const LoginWithGmail = async () => {
@@ -43,11 +46,6 @@ const LoginPage = () => {
       console.error('Error during Google signin', error);
     }
   }
-
-  if (user) {
-    navigate('/user')
-  }
-
   const HandleInputs = (event) => {
     const {name, value} = event.target;
     setInputs({
