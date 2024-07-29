@@ -6,6 +6,7 @@ import PreviewChapter from './PreviewChapter';
 import CommentsPreview from './CommentsPreview';
 
 const EditViewChapter = ({projectId, chapterId}) => {
+  const user = localStorage.getItem('user')
   const [chapter, setChapter] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -48,15 +49,31 @@ const EditViewChapter = ({projectId, chapterId}) => {
       <p>{chapter.content}</p>
       {/* Add more chapter details as needed */}
       {/* IMAGE HERE  */}
-      <div className='grid grid-rows-4 md:grid-rows-1  grid-cols-1 md:grid-cols-2 w-full h-full '>
-        <div className='row-span-2 md:col-span-1 overflow-y-auto  md:mb-32 pb-32'>
-          <PreviewChapter key={chapterId} chapterId={chapterId} projectId={projectId}></PreviewChapter>
-          
-        </div>
-        <div className='row-span-1 md:col-span-1 shadow-2xl md:mb-32  pb-32 shadow-black'>
-          <CommentsPreview key={chapterId} projectID={projectId} chapterID={chapterId}></CommentsPreview>
-        </div>
-      </div>
+      <div className='w-full h-full overflow-y-auto px-32'>
+                {chapter ? (
+                    <div className='w-full h-fit p-5'>
+                        {/* <p>{chapter.imageUrls}</p> */}
+                            {chapter.imageUrls && chapter.imageUrls.length > 0 ? (
+                                chapter.imageUrls.map((url, index) => (
+                                    <img key={index} src={url} alt={`${index}`} className='w-full object-cover h-full' />
+                                ))
+                            ) : (
+                                <p>No images available for this chapter.</p>
+                            )}
+                    </div>
+                ) : (
+                    <p>Loading chapter details...</p>
+                )}
+                {
+                    user ? <div>
+                        <CommentsPreview key={chapterId} chapterID={chapterId} projectID={projectId}></CommentsPreview>
+                    </div> : 
+                    
+                    <div className='w-full h-fit'>
+                        <p>You need an account to read and write comments.</p>
+                    </div> 
+                }
+            </div>
         {
             popupAddImage ? 
             <div className='fixed top-0 left-0 bg-black bg-opacity-50 justify-center items-center flex w-full h-screen'>

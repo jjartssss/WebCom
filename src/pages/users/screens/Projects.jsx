@@ -33,7 +33,7 @@ const Projects = ({userID, setWhatTabOpen}) => {
       
       <div className='p-5 mb-32'>
         
-        <div className=' grid grid-cols-1 md:grid-cols-6 md:gap-x-2 gap-y-5 md:gap-y-2 '>
+        <div className=' grid grid-cols-1  md:grid-cols-2 lg:md:grid-cols-3 xl:md:grid-cols-4 2xl:md:grid-cols-5 md:gap-x-2 gap-y-5 md:gap-y-2 '>
           {error && <p style={{ color: 'red' }}>{error}</p>}
           {projects.map((project, index) => (
             <ProjectCard
@@ -43,6 +43,7 @@ const Projects = ({userID, setWhatTabOpen}) => {
               title={project.title}
               desc={project.desc}
               image={project.imageURL}
+              status={project.status}
               projID={project.id}
             />
           ))}

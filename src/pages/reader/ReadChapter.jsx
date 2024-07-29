@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { fetchChapterContents } from '../users/global/FetchChapterContent';
+import CommentsPreview from '../users/screens/CommentsPreview';
 
 const ReadChapter = () => {
     const { projectID, chapterID } = useParams();
     const navigate = useNavigate();
-
+    const user = localStorage.getItem('user');
+    const userData = JSON.parse(user);
     const [chapter, setChapter] = useState(null);
     const [error, setError] = useState('');
 
@@ -45,6 +47,15 @@ const ReadChapter = () => {
                 ) : (
                     <p>Loading chapter details...</p>
                 )}
+                {
+                    user ? <div>
+                        <CommentsPreview chapterID={chapterID} projectID={projectID}></CommentsPreview>
+                    </div> : 
+                    
+                    <div className='w-full h-fit'>
+                        <p>You need an account to read and write comments.</p>
+                    </div> 
+                }
             </div>
     </div>    
     </div>

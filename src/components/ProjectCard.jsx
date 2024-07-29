@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaEdit } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
-const ProjectCard = ({title, desc, author, image, editProject, projID}) => {
+const ProjectCard = ({title, desc, status, author, image, editProject, projID}) => {
   const navigate = useNavigate();
 
   const PreviewProject = () => {
@@ -19,7 +19,12 @@ const ProjectCard = ({title, desc, author, image, editProject, projID}) => {
         <h3 className='text-2xl' >{title}</h3>
         <h3 className='text-base' >{desc}</h3>
         
-        <button onClick={() => PreviewProject()} className='btn-pri'>PREVIEW</button>
+        <button onClick={() => PreviewProject()} className='btn-pri my-2'>PREVIEW</button>
+        {
+          status === 'default' ? <button onClick={() => PreviewProject()} className='btn-pri bg-green-400'>PUBLISH</button>
+          : status === 'published' ? <button onClick={() => PreviewProject()} className='btn-pri bg-red-500'>UNPUBLISH</button>
+          : <button onClick={() => PreviewProject()} className='btn-pri bg-green-400 text-black'>PUBLISH</button>
+        }
     </div>
   )
 }
