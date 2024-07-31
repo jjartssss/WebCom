@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { collection, doc, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from '../../../../utils/firebase/firebaseConfig';
+import ActivityCard from '../../../../components/ActivityCard';
 
 const ActivityLogPage = () => {
     const user = localStorage.getItem('user');
@@ -39,17 +40,22 @@ const ActivityLogPage = () => {
 
 
   return (
-    <div>
-        {
-            userActivities ? 
-                userActivities.map((activity, index) => (
-                    <div key={index} className='w-full h-fit p-3'>
-                        {activity.id}
-                    </div>
-                )) : <></>
-        }
+    <div className='p-5'>
+        <center><h1 className='font1 p-5'>Activities</h1></center>
+        <div className='flex flex-col gap-y-2 overflow-y-auto'>
+            {
+                userActivities && userActivities.length > 0 ? 
+                    userActivities.map((activity, index) => {
+                        const type = activity.type === "like-comment" ? "like" : 
+                                     activity.type === "dislike-comment" ? "dislike" :
+                                     activity.type === "comment" ? "comment" : "";
+                        console.log(type);
+                        return <ActivityCard dateTime={activity.createdAt} key={index} comment={activity.actMessage} id={activity.commentID} type={type} />;
+                    }) : <p>No activities found.</p>
+            }
+        </div>
     </div>
-  )
+)
 }
 
 export default ActivityLogPage

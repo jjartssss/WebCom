@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import CommentCard from '../../../components/comments/CommentCard'
 import { addDoc, collection, doc, getDoc, getDocs, orderBy, query } from 'firebase/firestore';
 import { db } from '../../../utils/firebase/firebaseConfig';
+import { AddDataToActivityLog } from '../global/ActivityLog';
 
 const CommentsPreview = ({projectID, chapterID}) => {
   const user = localStorage.getItem('user');
@@ -55,13 +56,25 @@ const CommentsPreview = ({projectID, chapterID}) => {
   
   const AddCommentToChapter = async (chapterData) => {
       try {
+          
           const chaptersRef = doc(db, 'projects', projectID, 'chapters', chapterID);
           const commentRef = collection(chaptersRef, 'comments');
-          await addDoc(commentRef, chapterData).then(
-            setComment(""),
+          const result = await addDoc(commentRef, chapterData).then(
+            
+            
             console.log("Chapter added successfully!"),
             GetComments()
           );
+          const activityData = {
+            userID: userData.userID,
+            username: userData.username,
+            type: 'comment',
+            actMessage: `You wrote this comment ${comment}`,
+            commentID: result.id,
+            createdAt: new Date(),
+          }
+          AddDataToActivityLog(activityData);
+          setComment("");
       } catch (error) {
           console.error("Error adding chapter: ", error);
       }
