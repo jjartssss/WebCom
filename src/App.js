@@ -22,17 +22,17 @@ function App() {
 
   return (
     <div>
-      {/* <Router>
+      <Router>
         <Routes>
           <Route path="/" element={<LoadingPage />} />
+          <Route path="/webcom" element={<LandHomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/user" element={<HomePage />} />
           <Route path="/user/project/:projectID" element={<ReadPage />} />
           <Route path="/user/project/:projectID/chapter/:chapterID" element={<ReadChapter />} />
         </Routes>
-      </Router> */}
-      <LandHomePage></LandHomePage>
+      </Router>
     </div>
   );
 }

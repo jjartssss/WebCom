@@ -6,7 +6,7 @@ const LoadingPage = () => {
     const navigate = useNavigate();
     useEffect(()=> {
         const timer = setTimeout(() => {
-            navigate('/login');
+            navigate('/webcom');
         }, 2000);
     },[])
 
