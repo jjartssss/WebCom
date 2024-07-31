@@ -14,8 +14,10 @@ const LoginPage = () => {
   const [items, setItems] = useState([]);
   const [inputs, setInputs] = useState({username: '', password: ''});
   useEffect(() => {
-    if (userData.userID !== "" || userData.userID !== null) {
-      navigate('/user')
+    if (user) {
+      if (userData.userID !== "" || userData.userID !== null) {
+        navigate('/user')
+      }
     }
   }, []);
 
