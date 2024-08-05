@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { db } from '../../../utils/firebase/firebaseConfig';
 import EditViewChapter from './EditViewChapter';
 import { fetchChapters } from '../global/FetchChapters';
+import CharactersPopup from './Characters/CharactersPopup';
 
 const EditProject = ({projectID}) => {
     const [chapterTitle, setChapterTitle] = useState('');
@@ -13,6 +14,7 @@ const EditProject = ({projectID}) => {
 
 
     const [popupChapter , setPopupChapter ] = useState(false);
+    const [popupCharacter , setPopupCharacter ] = useState(false);
 
     const [chapterID, setChapterID] = useState();
 
@@ -65,12 +67,17 @@ const EditProject = ({projectID}) => {
   if (loading) return <p>Loading chapters...</p>;
 //   if (error) return <p>{error}</p>;
 
+    const CloseCharacterPopup = () => {
+        setPopupCharacter(false)
+    }
+
   return (
     <div className='w-full h-screen '>
         <div className='w-full h-screen grid grid-rows-5 md:grid-rows-1 grid-cols-1 md:grid-cols-5'>
             <div className='row-span-1 h-screen md:mb-0 md:col-span-1 bg-jt-white shadow-inner p-5 shadow-slate-400'>
-                <div className=' w-full flex justify-end'>   
-                    <button onClick={() => setPopupChapter(true)} className='btn-pri mb-5'>ADD CHAPTER</button>
+                <div className=' w-full flex flex-col justify-end'>   
+                    <button onClick={() => setPopupChapter(true)} className='btn-pri mb-2'>ADD CHAPTER</button>
+                    <button onClick={() => setPopupCharacter(true)} className='btn-pri bg-jt-primary-dark mb-5'>VIEW CHARACTERS</button>
                 </div>
 
                 <center><h1>Chapters</h1></center>
@@ -111,6 +118,13 @@ const EditProject = ({projectID}) => {
                     </form>
                 </div>
             </div> :<></>
+        }
+
+        {/* VIEW CHARACTERS POPUP  */}
+        {
+            popupCharacter === true ?
+            <CharactersPopup closePopup={() => CloseCharacterPopup()}></CharactersPopup>
+            : <></>
         }
     </div>
   )

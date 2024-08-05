@@ -33,22 +33,22 @@ const About = () => {
   return (
     <div className='flex justify-center  w-full h-screen bg-white'>
           <img src={BG} className='absolute bg-black opacity-50  w-full h-full object-cover object-center'/>
-          <div className='z-10 rounded-2xl -mt-32 w-[90%] max-w-[1500px] h-fit p-5 overflow-x-hidden bg-jt-primary-bright'>
-            <Carousel  stopOnHover={true} centerMode={true} autoPlay={true} infiniteLoop={true} interval={3000} swipeable={true}>
+          <div className='z-10 rounded-2xl -mt-32 w-[90%] max-w-[1500px] max-h-[650px] h-fit p-5 overflow-y-hidden bg-jt-primary-bright shadow-2xl'>
+            {/* <Carousel  stopOnHover={true} centerMode={true} autoPlay={true} infiniteLoop={true} interval={3000} swipeable={true}>
                 {
                     projects.map((project, index) => (
                         <ProjectCoverCard key={index} image={project.imageURL} projectID={project.id} ></ProjectCoverCard>
                     ))
                 }
-            </Carousel>
-            {/* <div className=' flex gap-x-5'>
+            </Carousel> */}
+            <div className='grid grid-cols-5 gap-x-5 gap-y-5 '>
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 {
                     projects.map((project, index) => (
                         <ProjectCoverCard key={index} image={project.imageURL} projectID={project.projectID} ></ProjectCoverCard>
                     ))
                 }
-            </div> */}
+            </div>
         </div>
     </div>
   )

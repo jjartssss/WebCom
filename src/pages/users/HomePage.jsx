@@ -31,7 +31,11 @@ const HomePage = () => {
     
     useEffect(() =>{
         // localStorage.removeItem('user')
-        if (userData.userID === "" || userData.userID === null) {
+        if(user) {
+            if (userData.userID === "" || userData.userID === null && userData.photoURL === null || userData.photoURL === "") {
+                navigate('/login');
+            }
+        } else {
             navigate('/login');
         }
     },[])
