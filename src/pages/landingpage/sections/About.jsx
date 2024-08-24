@@ -45,7 +45,7 @@ const About = () => {
                 {error && <p style={{ color: 'red' }}>{error}</p>}
                 {
                     projects.map((project, index) => (
-                        <ProjectCoverCard key={index} image={project.imageURL} projectID={project.projectID} ></ProjectCoverCard>
+                        <ProjectCoverCard key={index} image={project.imageURL} projectID={project.id} ></ProjectCoverCard>
                     ))
                 }
             </div>

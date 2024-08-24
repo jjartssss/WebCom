@@ -1,6 +1,7 @@
 import React from 'react'
 import CharacterListCard from './CharacterListCard'
 import { IoIosClose } from "react-icons/io";
+import CharacterPopupAdd from './CharacterPopupAdd';
 
 const CharactersPopup = ({closePopup}) => {
   return (
@@ -33,6 +34,7 @@ const CharactersPopup = ({closePopup}) => {
             </div>
             
         </div>
+        <CharacterPopupAdd></CharacterPopupAdd>
     </div>
   )
 }
